@@ -68,6 +68,11 @@ variable "identity_ids" {
   description = "List of user-assigned identity IDs (required if identity_type is UserAssigned)"
   type        = list(string)
   default     = null
+
+  validation {
+    condition     = var.identity_type != "UserAssigned" || (var.identity_ids != null && length(var.identity_ids) > 0)
+    error_message = "When identity_type is 'UserAssigned', identity_ids must be provided and contain at least one element."
+  }
 }
 
 variable "network_profile" {
