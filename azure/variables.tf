@@ -42,7 +42,7 @@ variable "default_node_pool" {
     name                = optional(string, "default")
     vm_size             = optional(string, "Standard_DS2_v2")
     node_count          = optional(number, 1)
-    enable_auto_scaling = optional(bool, false)
+    auto_scaling_enabled = optional(bool, false)
     min_count           = optional(number, null)
     max_count           = optional(number, null)
     os_disk_size_gb     = optional(number, 30)
@@ -54,14 +54,14 @@ variable "default_node_pool" {
 
   validation {
     condition = (
-      var.default_node_pool.enable_auto_scaling == false ||
+      var.default_node_pool.auto_scaling_enabled == false ||
       (
         var.default_node_pool.min_count != null &&
         var.default_node_pool.max_count != null &&
         var.default_node_pool.max_count >= var.default_node_pool.min_count
       )
     )
-    error_message = "When enable_auto_scaling is true, min_count and max_count must be set and max_count must be greater than or equal to min_count."
+    error_message = "When auto_scaling_enabled is true, min_count and max_count must be set and max_count must be greater than or equal to min_count."
   }
 }
 

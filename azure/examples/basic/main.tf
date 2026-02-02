@@ -30,7 +30,7 @@ module "aks" {
 
   default_node_pool = {
     name       = "default"
-    vm_size    = "Standard_DS2_v2"
+    vm_size    = "Standard_D2S_v3"
     node_count = 2
   }
 
