@@ -63,6 +63,14 @@ variable "default_node_pool" {
     )
     error_message = "When auto_scaling_enabled is true, min_count and max_count must be set and max_count must be greater than or equal to min_count."
   }
+
+
+  validation {
+    condition = (
+      can(regex("^[a-z][a-z0-9]{0,11}$", var.default_node_pool.name))
+    )
+    error_message = "Node pool name must start with a lowercase letter, contain only lowercase alphanumeric characters, and be at most 12 characters long."
+  }
 }
 
 variable "identity_type" {
