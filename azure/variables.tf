@@ -51,6 +51,18 @@ variable "default_node_pool" {
     zones               = optional(list(string), null)
   })
   default = {}
+
+  validation {
+    condition = (
+      var.default_node_pool.enable_auto_scaling == false ||
+      (
+        var.default_node_pool.min_count != null &&
+        var.default_node_pool.max_count != null &&
+        var.default_node_pool.max_count >= var.default_node_pool.min_count
+      )
+    )
+    error_message = "When enable_auto_scaling is true, min_count and max_count must be set and max_count must be greater than or equal to min_count."
+  }
 }
 
 variable "identity_type" {
