@@ -97,7 +97,7 @@ variable "network_profile" {
     load_balancer_sku   = optional(string, "standard")
     outbound_type       = optional(string, "loadBalancer")
   })
-  default = {}
+  default = null
 }
 
 variable "tags" {
