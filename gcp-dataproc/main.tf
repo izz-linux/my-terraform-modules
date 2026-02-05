@@ -1,6 +1,5 @@
 locals {
-  vault_addr = (var.env == "prod" || var.env == "production" ||
-  var.env == "prod-mirror" ? "https://vault.prod.thescore.is" : "https://vault.non-prod.thescore.is")
+
 }
 
 resource "google_dataproc_autoscaling_policy" "asp" {
@@ -110,14 +109,11 @@ resource "google_dataproc_cluster" "gce_based_cluster" {
 
     }
 
-    initialization_action {
-      script      = "gs://thescore-devops-dataproc-initialization-actions/vault/install_hashicorp_vault_v1.0.0.sh"
-      timeout_sec = 600
-    }
-    initialization_action {
-      script      = "gs://thescore-devops-dataproc-initialization-actions/datadog/install_datadog_agent_v1.0.0.sh"
-      timeout_sec = 600
-    }
+    # initialization_action {
+
+    # }
+    # initialization_action {
+    # }
 
     software_config {
       image_version       = var.image_version
